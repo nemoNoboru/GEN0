@@ -52,7 +52,8 @@ from pool import GeneticPool
 # Create a genetic pool of 1000 individuals, using random initialized clones of nn and using the fitness measuring function measure
 pool = GeneticPool(model=nn, env=measure, poolSize=1000)
 ```
-notice how we pass the measuring function created before, automatically the poolSize will pass to this function every individual and keep track of his fitness score
+notice how we pass the measuring function created before.
+automatically the poolSize will pass to this function every individual and keep track of his fitness score
 
 # Improving the genetic pool
 simply call pool.improve() and it will get fitness score, crossbreed and mutate all individuals in the pool.
