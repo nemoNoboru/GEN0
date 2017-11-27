@@ -6,6 +6,6 @@ def cross_with_mutation(genA, genB):
         if np.random.random() > 0.5:
             genA[i] = genB[i]
 
-        if np.random.random() > 0.9999999:
+        if np.random.random() > 0.999999:
             genA[i] = np.random.normal()
     return genA

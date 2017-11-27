@@ -1,14 +1,15 @@
 # feedForwards input to all layers Sequentialy
-import copy
 import numpy as np
+from mutable import Mutable
 
-class Sequential():
+
+class Sequential(Mutable):
     def __init__(self, mutationFunction):
         self.layers = []
         self.mutationFunction = mutationFunction
 
-    def first(self, layer, size):
-        self.layers.append(layer.setInputAndCreate(size))
+    def first(self, layer, input_size):
+        self.layers.append(layer.setInputAndCreate(input_size))
 
     def add(self, layer):
         output_dim = self.layers[-1].output_dim
@@ -20,24 +21,6 @@ class Sequential():
         for layer in self.layers:
             out = layer.feedForward(out)
         return out
-
-    def getGen(self):
-        gen = []
-        for layer in self.layers:
-            gen += layer.getWeights()
-        return gen
-
-    def mutateWith(self, lover):
-        genSelf = self.getGen()
-        genLover = lover.getGen()
-        self.setGen(self.mutationFunction(genSelf, genLover))
-
-    def setGen(self, gen):
-        for layer in self.layers:
-            layer.setWeights(gen[:layer.size])
-            del gen[:layer.size]
-        if len(gen) > 0:
-            print("error, some genes were not used")
 
     def new(self):
         new = Sequential(self.mutationFunction)
