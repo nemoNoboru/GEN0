@@ -1,6 +1,6 @@
 # feedForwards input to all layers Sequentialy
 import numpy as np
-from mutable import Mutable
+from .mutable import Mutable
 
 
 class Sequential(Mutable):
