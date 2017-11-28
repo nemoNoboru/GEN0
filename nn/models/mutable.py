@@ -20,5 +20,6 @@ class Mutable():
         for layer in self.layers:
             layer.setWeights(gen[:layer.size])
             del gen[:layer.size]
+            print("Layer added")
         if len(gen) > 0:
             print("error, some genes were not used")

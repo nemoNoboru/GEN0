@@ -16,8 +16,8 @@ class LSTM(Mutable):
         self.mutation = mutation
         self.input_dim = input_dim + output_dim
         self.output_dim = output_dim
-        self.ht = np.ones(output_dim)
-        self.ct = np.ones(output_dim)
+        self.ht = np.zeros(output_dim)
+        self.ct = np.zeros(output_dim)
 
         self.forget = Gate(v_sigmoid, self.input_dim, output_dim)
         self.input = Gate(v_sigmoid, self.input_dim, output_dim)
@@ -33,20 +33,22 @@ class LSTM(Mutable):
         nct = self.cand.feedForward(i)
         ot = self.output.feedForward(i)
 
-        self.ct = (ft * self.ct) + (it * nct)
-        self.ht = ot * np.tanh(self.ct)
+        self.ct = np.add(np.multiply(ft, self.ct), np.multiply(it, nct))
+        self.ht = np.multiply(ot, np.tanh(self.ct))
         return self.ht
 
     def mutateWith(self, lover):
-        self.ht = np.ones(self.output_dim)
-        self.ct = np.ones(self.output_dim)
+        self.ht = np.zeros(self.output_dim)
+        self.ct = np.zeros(self.output_dim)
         genSelf = self.getGen()
+        print("SELF IS: {}".format(self))
+        print("LOVER IS: {}".format(lover))
         genLover = lover.getGen()
         self.setGen(self.mutation(genSelf, genLover))
 
     def new(self):
         new = LSTM(self.input_dim - self.output_dim, self.output_dim, self.mutation)
-        new.layers = self.layers
-        for layer in new.layers:
-            layer.reset()
+        # new.layers = self.layers
+        # for layer in new.layers:
+        #     layer.reset()
         return new

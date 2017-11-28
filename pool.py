@@ -16,6 +16,7 @@ class GeneticPool():
         # Measure fitness of all individuals
         for i in self.poolRange:
             self.fitnesses[i] = self.measure_performance(self.individuals[i])
+            print(self.fitnesses[i])
             #print ("reward of {} is :{}".format(i, self.fitnesses[i]))
 
         # Get the winner of the generation

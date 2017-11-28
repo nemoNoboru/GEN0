@@ -1,30 +1,28 @@
-from nn.lstm.lstm import LSTM
+from nn.models.lstm.lstm import LSTM
 from mutation.mutators import cross_with_mutation
 from pool import GeneticPool
-import gym
+from server import Gym
+
+sq = LSTM(7, 1, cross_with_mutation)
+env = Gym()
 
 
-
-env = gym.make('LunarLanderContinuous-v2')
-
-sq = LSTM(8, 2, cross_with_mutation)
-
-
-def measure(agent):
-    state = env.reset()
+def measure_unity(agent):
     total_reward = 0
-
-    for _ in range(1000):
+    state = env.step([0, 0, 0, 0])['state']
+    while True:
         #env.render()
         action = agent.run(state)
-        state, reward, done, info = env.step(action)
-        total_reward += reward
-        if done:
+        #print(action)
+        observation = env.step(action.tolist())
+        total_reward += observation['reward']
+        if observation['done']:
             break
+        state = observation['state']
     return total_reward
 
 
-pool = GeneticPool(model=sq, env=measure, poolSize=10000)
+pool = GeneticPool(model=sq, env=measure_unity, poolSize=10)
 for generation in range(500):
     max_reward = pool.improve()
     print('Max reward of generation {} is {}'.format(generation, max_reward))

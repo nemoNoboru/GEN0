@@ -25,6 +25,14 @@ def test_cross_lstm():
     b = t.run([1])
     assert a[0] == b[0]
 
+def test_cross_lstm_another():
+    t = LSTM(1, 2, cross_with_mutation)
+    q = LSTM(1, 2, cross_with_mutation)
+    a = t.run([1])
+    t.mutateWith(q)
+    b = t.run([1])
+    assert a[0] != b[0]
+
 def test_pool():
     def mock(agent):
         return 1

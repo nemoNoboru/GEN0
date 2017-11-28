@@ -21,7 +21,8 @@ class DenseLayer():
         self.weights = np.reshape(weights, (self.output_dim, self.input_dim))
 
     def reset(self):
-        self.weights = np.random.rand(self.output_dim, self.input_dim)
+        w = np.random.normal(size=self.output_dim * self.input_dim)
+        self.setWeights(w)
 
     def setInputAndCreate(self, input_dim):
         self.input_dim = input_dim
