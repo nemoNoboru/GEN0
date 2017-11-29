@@ -1,7 +1,7 @@
 # long short term memory layer
 # source : http://colah.github.io/posts/2015-08-Understanding-LSTMs/
 import numpy as np
-from gate import Gate
+from .gate import Gate
 from nn.models.mutable import Mutable
 
 def sigmoid(x):
