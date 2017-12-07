@@ -1,8 +1,8 @@
 # GEN0 by MOBGEN:LAB
-Neural Network Genetic Algorithm framework written in python, based in numpy
+Neural Network Genetic Algorithm framework written in python, based in numpy.
 
 Genetic algorithms are relatively simple to understand and debug and can give
-pretty good results in Reinforcement Learning environments.
+pretty good results in Reinforcement Learning environments. 
 
 # Creating a model
 i followed the same interface that keras uses to creating their models
@@ -37,7 +37,9 @@ model = KerasWrapper(model=model, mutation_func=cross_with_mutation)
 ```
 
 # Fitness Measure function
-in order to improve the neural networks the genetic pool needs a way of measure how well a individual works. that is, how much it "fits" in his environment
+in order to improve the neural networks the genetic pool needs a way of measure how well a individual works.
+
+that is, how much it "fits" in his environment.
 this is a example of a measuring function that uses an open ai gym environment
 ```python
 import gym
@@ -67,7 +69,9 @@ from pool import GeneticPool
 pool = GeneticPool(model=nn, env=measure, poolSize=1000)
 ```
 notice how we pass the measuring function created before.
-automatically the poolSize will pass to this function every individual and keep track of his fitness score
+
+
+automatically the GeneticPool will call measure with every individual in the pool as an argument, then use his returned value as a fitness score.
 
 # Improving the genetic pool
 simply call pool.improve() and it will get fitness score, crossbreed and mutate all individuals in the pool.
