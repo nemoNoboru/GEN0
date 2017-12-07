@@ -22,6 +22,20 @@ nn.add(DenseLayer(size=200, activation=tanh))
 nn.add(DenseLayer(size=3, activation=tanh))
 ```
 
+# Keras support
+You can use a Keras model too if you wrap it on a KerasWrapper, for example:
+```python
+from keras.models import Sequential
+from keras.layers import Dense
+from keras_support.keras_wrapper import KerasWrapper
+from mutation.mutators import cross_with_mutation
+
+sq = Sequential()
+s.add(Dense(5, input_dim=1))
+s.add(Dense(3))
+model = KerasWrapper(model=model, mutation_func=cross_with_mutation)
+```
+
 # Fitness Measure function
 in order to improve the neural networks the genetic pool needs a way of measure how well a individual works. that is, how much it "fits" in his environment
 this is a example of a measuring function that uses an open ai gym environment
