@@ -1,3 +1,4 @@
+# 2019
 # manages a pool of neural nets
 import numpy as np
 
